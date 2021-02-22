@@ -26,30 +26,36 @@ $(".btn-provjera-odgovora").on("click", function() {
 
         if (brojPotrebnihTocnihOdgovora==="1") {
             if (odgovorenoTocnih>0) {
-                ($(".img-correct")[i-1]).classList.remove("hidden-img");
-                ($(".img-wrong")[i-1]).classList.add("hidden-img");
-                tocnoOdgovorenihPitanjaUkupno++;
-                $(".panel-blue")[i-1].style.backgroundColor="#a0e8af";
+                tocnoOdgovorenihPitanjaUkupno=oznacavanjeTocnogOdgovora(i, tocnoOdgovorenihPitanjaUkupno);
             } else {
-                ($(".img-wrong")[i-1]).classList.remove("hidden-img");
-                ($(".img-correct")[i-1]).classList.add("hidden-img");
-                $(".panel-blue")[i-1].style.backgroundColor="#f9bec7";
+                oznacavanjeNetocnogOdgovora(i);
             }
         } else {
             if (odgovorenoTocnih===2 && $($(".pitanje")[i-1]).find(".form-check-input:checked").length===2) {
-                ($(".img-correct")[i-1]).classList.remove("hidden-img");
-                ($(".img-wrong")[i-1]).classList.add("hidden-img");
-                tocnoOdgovorenihPitanjaUkupno++;
-                $(".panel-blue")[i-1].style.backgroundColor="#a0e8af";
+                tocnoOdgovorenihPitanjaUkupno=oznacavanjeTocnogOdgovora(i, tocnoOdgovorenihPitanjaUkupno);
             } else {
-                ($(".img-wrong")[i-1]).classList.remove("hidden-img");
-                ($(".img-correct")[i-1]).classList.add("hidden-img");
-                $(".panel-blue")[i-1].style.backgroundColor="#f9bec7";
+                oznacavanjeNetocnogOdgovora(i);
             }
         }
-
-
     }
+
+
+    function oznacavanjeTocnogOdgovora(i, tocnoOdgovorenihPitanjaUkupno) {
+        ($(".img-correct")[i-1]).classList.remove("hidden-img");
+        ($(".img-wrong")[i-1]).classList.add("hidden-img");
+        tocnoOdgovorenihPitanjaUkupno++;
+        $(".panel-blue")[i-1].style.backgroundColor="#a0e8af";
+        return tocnoOdgovorenihPitanjaUkupno;
+    }
+
+    function oznacavanjeNetocnogOdgovora(i) {
+        ($(".img-wrong")[i-1]).classList.remove("hidden-img");
+        ($(".img-correct")[i-1]).classList.add("hidden-img");
+        $(".panel-blue")[i-1].style.backgroundColor="#f9bec7";
+    }
+
+
+
 
     // nakon provjere rezultata disabla se gumb "Provjeri odgovore" i radio buttoni
     $("#provjera").prop({'disabled': true});
@@ -109,6 +115,4 @@ function ispisRezultata(tocnoOdgovorenihPitanjaUkupno, ukupnoPitanja) {
         document.getElementById("daLiJeIspitPolozen").innerHTML = "Nažalost, niste položili ispit (FAIL)";
         document.getElementById("image-thumb").src="img/thumb-down.png";
     }
-
-
 }
