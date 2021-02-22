@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>DB2 dump vjezba</title>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+    <link rel="stylesheet" th:href="@{/css/styles.css}"/>
+
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Varela&display=swap" rel="stylesheet">
+
+    <!--    <script src="js/myscript.js"></script>-->
+
+</head>
+<body>
+
+<div class="glavni-okvir">
+
+    <div class="rezultati-form rezultati-form-hidden">
+        <div class="ukupni-rezultat">
+
+            <div class="box1 sb5">
+                Rezultati ispita
+
+                <br>
+
+                <div>
+                    <p id="rezultatParagraf"></p>
+                </div>
+                <br>
+                <p id="daLiJeIspitPolozen"></p>
+                <br>
+                <img id="image-thumb" src="img/thumb-up.png" height="60px" width="60px"/>
+            </div>
+
+        </div>
+    </div>
+
+
+
+    <div class="container naslov-container">
+        <div class="row">
+            <div class="col">
+                <div class="panel2 panel-green">
+                    <h3>PITANJA - IBM C2090-600 Exam</h3>
+
+                    <form class="btn-izmješaj" th:action="@{/shuffle}">
+                        <button th:type="submit" class="btn btn-primary">Izmiješati</button>
+                    </form>
+
+                    <form class="btn-provjera-odgovora">
+                        <button id="provjera" th:type="button" class="btn btn-warning">Provjeri odgovore</button>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <th:block th:each="pitanje:${pitanja}"
+              th:brojTocnihOdgovora="${pitanje.getBrojTocnihOdgovora()}">
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <div class="panel panel-blue">
+                    <pre class="pre-format-pitanje"><span th:text="${counter.getCounterPitanja()+'. '+pitanje.getPitanje()}"
+                          class="pitanje-font"></span></pre>
+                        <br>
+                        <br>
+                        <a hidden th:text="${counter.resetCounterOdgovori()}"></a>
+
+
+                        <div th:switch="${pitanje.getBrojTocnihOdgovora()}" class="pitanje"
+                             th:id="${counter.getTrenutnoPitanje()}"
+                             th:brojTocnihOdgovora="${pitanje.getBrojTocnihOdgovora()}">
+                            <div th:case="1">
+                                <th:block th:each="odgovor : ${pitanje.getOdgovori()}">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio"
+                                               th:name="'odgovori-na-pitanje-'+ ${counter.getTrenutnoPitanje()}"
+                                               th:id="'flexRadioDefault-'+${counter.getTrenutnoPitanje()}+'-'+ ${counter.getSlovoTrenutnogOdgovora()}"
+                                               th:pitanje="${counter.getTrenutnoPitanje()}"
+                                               th:odgovor="${counter.getSlovoTrenutnogOdgovora()}"
+                                               th:tocnost="${odgovor.getIsTocan()}">
+                                    </div>
+                                    <span class="odgovor"
+                                          th:text="${counter.getCounterOdgovori()+ '  ' + odgovor.getOdgovor()}"></span>
+                                    <br>
+                                </th:block>
+                            </div>
+                            <div th:case="2">
+                                <th:block th:each="odgovor : ${pitanje.getOdgovori()}">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox"
+                                               th:name="'odgovori-na-pitanje-'+ ${counter.getTrenutnoPitanje()}"
+                                               th:id="'flexCheckboxDefault-'+${counter.getTrenutnoPitanje()}+'-'+ ${counter.getSlovoTrenutnogOdgovora()}"
+                                               th:pitanje="${counter.getTrenutnoPitanje()}"
+                                               th:odgovor="${counter.getSlovoTrenutnogOdgovora()}"
+                                               th:tocnost="${odgovor.getIsTocan()}">
+                                    </div>
+                                    <span class="odgovor"
+                                          th:text="${counter.getCounterOdgovori()+ '  ' + odgovor.getOdgovor()}"></span>
+                                    <br>
+                                </th:block>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <img class="image img-correct hidden-img" src="img/correct.svg" height="50px" width="50px">
+        <img class="image img-wrong hidden-img" src="img/wrong.png" height="50px" width="50px">
+
+        <input type="hidden" id="ukupno-pitanja" th:value="${counter.getUkupnoPitanja()}"/>
+
+    </th:block>
+</div>
+
+<script th:src="@{https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js}"></script>
+<script th:src="@{js/myscript.js}"></script>
+
+
+</body>
+
+
+</html>
