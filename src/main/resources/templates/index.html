@@ -23,9 +23,7 @@
 
             <div class="box1 sb5">
                 Rezultati ispita
-
                 <br>
-
                 <div>
                     <p id="rezultatParagraf"></p>
                 </div>
@@ -68,9 +66,7 @@
                     <pre class="pre-format-pitanje"><span th:text="${counter.getCounterPitanja()+'. '+pitanje.getPitanje()}"
                                                           class="pitanje-font"></span></pre>
                         <br>
-                        <br>
                         <a hidden th:text="${counter.resetCounterOdgovori()}"></a>
-
 
                         <div th:switch="${pitanje.getBrojTocnihOdgovora()}" class="pitanje"
                              th:id="${counter.getTrenutnoPitanje()}"
