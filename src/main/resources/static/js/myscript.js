@@ -39,24 +39,6 @@ $(".btn-provjera-odgovora").on("click", function() {
         }
     }
 
-
-    function oznacavanjeTocnogOdgovora(i, tocnoOdgovorenihPitanjaUkupno) {
-        ($(".img-correct")[i-1]).classList.remove("hidden-img");
-        ($(".img-wrong")[i-1]).classList.add("hidden-img");
-        tocnoOdgovorenihPitanjaUkupno++;
-        $(".panel-blue")[i-1].style.backgroundColor="#a0e8af";
-        return tocnoOdgovorenihPitanjaUkupno;
-    }
-
-    function oznacavanjeNetocnogOdgovora(i) {
-        ($(".img-wrong")[i-1]).classList.remove("hidden-img");
-        ($(".img-correct")[i-1]).classList.add("hidden-img");
-        $(".panel-blue")[i-1].style.backgroundColor="#f9bec7";
-    }
-
-
-
-
     // nakon provjere rezultata disabla se gumb "Provjeri odgovore" i radio buttoni
     $("#provjera").prop({'disabled': true});
 
@@ -73,6 +55,19 @@ $(".btn-provjera-odgovora").on("click", function() {
 });
 
 
+function oznacavanjeTocnogOdgovora(i, tocnoOdgovorenihPitanjaUkupno) {
+    ($(".img-correct")[i-1]).classList.remove("hidden-img");
+    ($(".img-wrong")[i-1]).classList.add("hidden-img");
+    tocnoOdgovorenihPitanjaUkupno++;
+    $(".panel-blue")[i-1].style.backgroundColor="#a0e8af";
+    return tocnoOdgovorenihPitanjaUkupno;
+}
+
+function oznacavanjeNetocnogOdgovora(i) {
+    ($(".img-wrong")[i-1]).classList.remove("hidden-img");
+    ($(".img-correct")[i-1]).classList.add("hidden-img");
+    $(".panel-blue")[i-1].style.backgroundColor="#f9bec7";
+}
 
 
 function obracunIspita(tocnoOdgovorenihPitanjaUkupno) {
