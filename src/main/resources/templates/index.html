@@ -3,11 +3,16 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <title>DB2 dump vjezba</title>
+
+<!--    <script th:src="@{https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js}"></script>-->
+<!--    -->
+<!--    &lt;!&ndash; Latest compiled JavaScript &ndash;&gt;-->
+<!--    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>-->
+
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 
-    <!-- Latest compiled JavaScript -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
 
     <link rel="stylesheet" th:href="@{/css/styles.css}"/>
 
@@ -16,25 +21,56 @@
 </head>
 <body>
 
+<!-- MODAL TEST   -->
+<div class="modal" tabindex="-1" role="dialog" id="myModal">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="title-modal">Upozorenje !</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p id="poruka-modal">
+                    <span id="span1">Nisu riješena pitanja:</span>
+                    <span id="svaNeodgovorenaPitanja"></span>
+                </p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" id="btn-nastavi-rjesavanje-modal"
+                        data-dismiss="modal">Nastavi rješavati ispit</button>
+                <button type="button" class="btn btn-secondary"
+                        id="btn-modal-provjeri-rezultate"
+                        data-dismiss="modal">Provjeri rezultate</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
 <div class="glavni-okvir">
 
     <div class="rezultati-form rezultati-form-hidden">
         <div class="ukupni-rezultat">
-
             <div class="box1 sb5">
                 Rezultati ispita
-
                 <br>
-
                 <div>
                     <p id="rezultatParagraf"></p>
                 </div>
                 <br>
                 <p id="daLiJeIspitPolozen"></p>
                 <br>
-                <img id="image-thumb" src="img/thumb-up.png" height="60px" width="60px"/>
+                <img id="image-thumb" src="" height="60px" width="60px"/>
             </div>
-
         </div>
     </div>
 
@@ -45,13 +81,17 @@
                 <div class="panel2 panel-green">
                     <h3>PITANJA - IBM C2090-600 Exam</h3>
 
-                    <form class="btn-izmješaj" th:action="@{/shuffle}">
-                        <button th:type="submit" class="btn btn-primary">Izmiješati</button>
+                    <form class="btn-zapocni-rjesavanje" th:action="@{/shuffle}">
+                        <button id="zapocni-rjesavanje" th:type="submit" class="btn btn-info">Započni rješavanje</button>
                     </form>
 
                     <form class="btn-provjera-odgovora">
                         <button id="provjera" th:type="button" class="btn btn-warning">Provjeri odgovore</button>
                     </form>
+
+                    <div class="timer-container">
+                        <p class="timer" id="timer">90 : 00</p>
+                    </div>
 
                 </div>
             </div>
@@ -71,10 +111,10 @@
                         <br>
                         <a hidden th:text="${counter.resetCounterOdgovori()}"></a>
 
-
                         <div th:switch="${pitanje.getBrojTocnihOdgovora()}" class="pitanje"
                              th:id="${counter.getTrenutnoPitanje()}"
                              th:brojTocnihOdgovora="${pitanje.getBrojTocnihOdgovora()}">
+
                             <div th:case="1">
                                 <th:block th:each="odgovor : ${pitanje.getOdgovori()}">
                                     <div class="form-check">
@@ -86,10 +126,14 @@
                                                th:tocnost="${odgovor.getIsTocan()}">
                                     </div>
                                     <span class="odgovor"
+                                          th:data-input="Y"
+                                          th:odgovoriNaPitanje="${counter.getTrenutnoPitanje()}"
+                                          th:tocnost="${odgovor.getIsTocan()}"
                                           th:text="${counter.getCounterOdgovori()+ '  ' + odgovor.getOdgovor()}"></span>
                                     <br>
                                 </th:block>
                             </div>
+
                             <div th:case="2">
                                 <th:block th:each="odgovor : ${pitanje.getOdgovori()}">
                                     <div class="form-check">
@@ -101,10 +145,14 @@
                                                th:tocnost="${odgovor.getIsTocan()}">
                                     </div>
                                     <span class="odgovor"
+                                          th:data-input="Y"
+                                          th:odgovoriNaPitanje="${counter.getTrenutnoPitanje()}"
+                                          th:tocnost="${odgovor.getIsTocan()}"
                                           th:text="${counter.getCounterOdgovori()+ '  ' + odgovor.getOdgovor()}"></span>
                                     <br>
                                 </th:block>
                             </div>
+
                         </div>
                     </div>
                 </div>
@@ -120,7 +168,15 @@
     </th:block>
 </div>
 
-<script th:src="@{https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js}"></script>
+<!--<script th:src="@{https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js}"></script>-->
+<script
+        src="https://code.jquery.com/jquery-3.5.1.min.js"
+        integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
+        crossorigin="anonymous"></script>
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+
 <script th:src="@{js/myscript.js}"></script>
 
 

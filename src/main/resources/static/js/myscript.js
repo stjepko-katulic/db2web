@@ -1,12 +1,97 @@
+var num="0";
 
 
-$(".btn-provjera-odgovora").on("click", function() {
+window.onload=function() {
+    if (sessionStorage.getItem("isBtnZapocniRjesavatiDisabled")==="true") {
+        document.getElementById("zapocni-rjesavanje").disabled = true;
+        sessionStorage.setItem("isBtnZapocniRjesavatiDisabled", "false");
+        stoperica();
+    }
+
+    if (sessionStorage.getItem("myNum")!==null) {return;}
+
+    $("#provjera").prop({'disabled': true});
+    var sviOdgovori = $(".form-check-input");
+
+    $.each(sviOdgovori, function (index, value) {
+        $(value).prop({'disabled': true});
+    });
+};
+
+
+$(".btn-zapocni-rjesavanje").on("click", function () {
+
+    if (sessionStorage.getItem("myNum")==null) {
+        sessionStorage.setItem("myNum", num);
+    } else {
+        sessionStorage.setItem("myNum", (parseInt(sessionStorage.getItem("myNum"))+1).toString());
+    }
+
+    $("#provjera").prop({'disabled': false});
+    var sviOdgovori = $(".form-check-input");
+
+    $.each(sviOdgovori, function (index, value) {
+        $(value).prop({'disabled': false});
+    });
+
+    sessionStorage.setItem("isBtnZapocniRjesavatiDisabled", "true");
+});
+
+
+
+
+$(".btn-provjera-odgovora").on("click", klikProvjeraOdgovora);
+
+
+function klikProvjeraOdgovora() {
+    // provjera da li je odgovoreno na sva pitanja i da li želimo nastaviti sa provjerom rješenja
+    var ukupnoPitanja = parseInt($("#ukupno-pitanja").val(),10);
+    var neodgovorenaPitanja="";
+
+    for (let i=1; i<ukupnoPitanja+1; i++) {
+        var brojPotrebnihTocnihOdgovora=$(".pitanje")[i-1].getAttribute("brojTocnihOdgovora");
+
+        if (brojPotrebnihTocnihOdgovora==="1") {
+            if ($($(".pitanje")[i - 1]).find(".form-check-input:checked").length === 0) {
+                neodgovorenaPitanja += $(".pitanje")[i - 1].getAttribute("id") + ", ";
+            }
+        } else {
+            if ($($(".pitanje")[i - 1]).find(".form-check-input:checked").length < 2) {
+                neodgovorenaPitanja += $(".pitanje")[i - 1].getAttribute("id") + ", ";
+            }
+        }
+    }
+
+    if (neodgovorenaPitanja!==""){
+        document.getElementById("svaNeodgovorenaPitanja").innerHTML=neodgovorenaPitanja.substr(0, neodgovorenaPitanja.length-2);
+        $('#myModal').modal('show');
+    } else {
+        provjeraOdgovora();
+    }
+
+    document.getElementById("zapocni-rjesavanje").disabled = false;
+    document.getElementById("timer").innerHTML="90 : 00";
+};
+
+
+$("#btn-modal-provjeri-rezultate").on("click", function () {
+    provjeraOdgovora();
+});
+
+
+function provjeraOdgovora() {
+
+    // prvo zaustaviti interval
+
+    if (intervalTimera!==null) {
+        clearInterval(intervalTimera);
+    }
+
     var ukupnoPitanja = parseInt($("#ukupno-pitanja").val(),10);
     var sviOdgovori = $(".form-check-input");
     var tocnoOdgovorenihPitanjaUkupno=0;
 
     var pitanje;
-
 
     for (let i=1; i<ukupnoPitanja+1; i++) {
         var upit="[pitanje='"+ i + "']";
@@ -23,8 +108,21 @@ $(".btn-provjera-odgovora").on("click", function() {
             }
         });
 
+        // označavanje točnih odgovora u trenutnom pitanju
+        var upit2="[odgovoriNaPitanje='"+ i + "']";
+        var odgovoriNaTrenutnoPitanje = document.querySelectorAll(upit2);
+
+        odgovoriNaTrenutnoPitanje.forEach(function (item, index) {
+            var isOvoOdgovorKojiJeTocan = item.getAttribute("tocnost");
+
+            if (isOvoOdgovorKojiJeTocan==="DA") {
+                $(item).css("background-color", "#e9f5db");
+            }
+        });
+
 
         if (brojPotrebnihTocnihOdgovora==="1") {
+
             if (odgovorenoTocnih>0) {
                 tocnoOdgovorenihPitanjaUkupno=oznacavanjeTocnogOdgovora(i, tocnoOdgovorenihPitanjaUkupno);
             } else {
@@ -37,6 +135,8 @@ $(".btn-provjera-odgovora").on("click", function() {
                 oznacavanjeNetocnogOdgovora(i);
             }
         }
+
+
     }
 
 
@@ -56,8 +156,7 @@ $(".btn-provjera-odgovora").on("click", function() {
 
 
 
-
-    // nakon provjere rezultata disabla se gumb "Provjeri odgovore" i radio buttoni
+    // nakon provjere rezultata disabla se gumb "Provjeri odgovore" i radio/checkbox buttoni
     $("#provjera").prop({'disabled': true});
 
     $.each(sviOdgovori, function (index, value) {
@@ -69,8 +168,7 @@ $(".btn-provjera-odgovora").on("click", function() {
 
     //ispis rezultata
     ispisRezultata(tocnoOdgovorenihPitanjaUkupno, ukupnoPitanja);
-
-});
+}
 
 
 
@@ -109,10 +207,74 @@ function ispisRezultata(tocnoOdgovorenihPitanjaUkupno, ukupnoPitanja) {
         + tocnoOdgovorenihPitanjaUkupno + " od ukupno " +
         ukupnoPitanja + " pitanja (" + postotakRijesenogIspita + "%).";
 
-    if (postotakRijesenogIspita>64) {
+    if (ukupnoNetocnihOdgovora===0) {
+        document.getElementById("daLiJeIspitPolozen").innerHTML = "Riješili ste sva pitanja točno! BRAVO!";
+        document.getElementById("image-thumb").src="img/champion.png";
+    } else if (postotakRijesenogIspita>64) {
         document.getElementById("daLiJeIspitPolozen").innerHTML = "Uspješno ste položili ispit! (PASS)";
+        document.getElementById("image-thumb").src="img/thumb-up.png";
     } else {
         document.getElementById("daLiJeIspitPolozen").innerHTML = "Nažalost, niste položili ispit (FAIL)";
         document.getElementById("image-thumb").src="img/thumb-down.png";
     }
 }
+
+// ŠTOPERICA
+
+var intervalTimera;
+
+function stoperica() {
+    var vrijemeMinute="01";
+    var vrijemeSekunde="00";
+
+    intervalTimera = setInterval(function () {
+        var minute=parseInt(vrijemeMinute);
+        var sekunde=parseInt(vrijemeSekunde);
+
+        if (minute===0 && sekunde===0) {
+            klikProvjeraOdgovora();
+        }
+
+        if (sekunde===0) {
+            if ((minute-1).toString().length===1) {
+                vrijemeMinute = "0" + (minute - 1).toString();
+            } else {
+                vrijemeMinute = (minute - 1).toString();
+            }
+
+            vrijemeSekunde="59";
+        } else {
+            if ((sekunde-1).toString().length===1) {
+                vrijemeSekunde="0"+(sekunde-1).toString();
+            } else {
+                vrijemeSekunde=(sekunde-1).toString();
+            }
+        }
+
+        console.log(vrijemeMinute+" : " + vrijemeSekunde);
+
+        document.getElementById("timer").innerHTML=vrijemeMinute + ":"  + vrijemeSekunde;
+
+    },1000);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
