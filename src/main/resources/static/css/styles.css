@@ -53,8 +53,17 @@ h3 {
     position: relative;
     display: inline-block;
     top: 30%;
-    font-size: 24px;
+    font-size: 22px;
     margin-left: 65%;
+    border: 3px solid black;
+    border-radius: 12px;
+    padding: 5px 10px 5px 10px;
+    background-color: #F5FFFA;
+}
+
+.timer {
+    margin: 1px;
+    color: black;
 }
 
 .pitanje-font {
@@ -154,6 +163,14 @@ h3 {
     font-weight: bold;
 }
 
+#title-modal-isteklo-vrijeme {
+    color: yellow;
+    font-size: 22px;
+    font-weight: bold;
+}
+
+
+
 .modal-header {
     background-color: #40916c;
 }
@@ -162,8 +179,12 @@ h3 {
     color:#08485e;
 }
 
+#poruka-modal-isteklo-vrijeme {
+    color:#08485e;
+}
+
 #btn-modal-provjeri-rezultate {
-    background-color: #08485e;
+    /*background-color: #08485e;*/
     color: white;
 }
 
