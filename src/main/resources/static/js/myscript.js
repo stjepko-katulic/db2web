@@ -285,21 +285,3 @@ function stoperica() {
 $("#btn-modal-isteklo-vrijeme").on("click", function () {
     klikProvjeraOdgovora(true);
 });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

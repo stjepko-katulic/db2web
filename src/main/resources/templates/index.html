@@ -114,7 +114,6 @@
                     <pre class="pre-format-pitanje"><span th:text="${counter.getCounterPitanja()+'. '+pitanje.getPitanje()}"
                                                           class="pitanje-font"></span></pre>
                         <br>
-                        <br>
                         <a hidden th:text="${counter.resetCounterOdgovori()}"></a>
 
                         <div th:switch="${pitanje.getBrojTocnihOdgovora()}" class="pitanje"
