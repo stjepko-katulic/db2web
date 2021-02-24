@@ -27,25 +27,43 @@
 }
 
 h3 {
-    display: inline-block;
+    display: block;
     position: relative;
     font-family: arial;
     margin: auto;
+    left:2%;
 }
 
-
-.btn-izmješaj {
+.btn-zapocni-rjesavanje {
+    position: relative;
     display: inline-block;
-    position: absolute;
-    left: 90%;
-    margin: auto;
+    top:30%;
+    margin-left: 2%;
 }
 
 
 .btn-provjera-odgovora {
-    position: absolute;
-    left: 4%;
-    top:50%;
+    position: relative;
+    display: inline-block;
+    margin-left: 2%;
+    top:30%;
+}
+
+.timer-container {
+    position: relative;
+    display: inline-block;
+    top: 30%;
+    font-size: 22px;
+    margin-left: 65%;
+    border: 3px solid black;
+    border-radius: 12px;
+    padding: 5px 10px 5px 10px;
+    background-color: #F5FFFA;
+}
+
+.timer {
+    margin: 1px;
+    color: black;
 }
 
 .pitanje-font {
@@ -137,3 +155,40 @@ h3 {
     font-family: arial;
     background-color: #fcfffd;
 }
+
+/* MODAL */
+#title-modal {
+    color: yellow;
+    font-size: 22px;
+    font-weight: bold;
+}
+
+#title-modal-isteklo-vrijeme {
+    color: yellow;
+    font-size: 22px;
+    font-weight: bold;
+}
+
+
+
+.modal-header {
+    background-color: #40916c;
+}
+
+#poruka-modal {
+    color:#08485e;
+}
+
+#poruka-modal-isteklo-vrijeme {
+    color:#08485e;
+}
+
+#btn-modal-provjeri-rezultate {
+    /*background-color: #08485e;*/
+    color: white;
+}
+
+#span1 {
+    font-weight: bolder;
+}
+
