@@ -4,8 +4,6 @@ import hr.yossarian.db2web.dao.Repozitorij;
 import hr.yossarian.db2web.objects.Counter;
 import hr.yossarian.db2web.objects.Pitanje;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
@@ -44,6 +42,13 @@ public class MainController {
     modelAndView.addObject("pitanja", pitanja);
     modelAndView.addObject("counter", counter);
     modelAndView.setViewName("index");
+    return modelAndView;
+  }
+
+  @GetMapping("/ispit")
+  public ModelAndView getIspit() {
+    ModelAndView modelAndView = new ModelAndView();
+    modelAndView.setViewName("ispit");
     return modelAndView;
   }
 

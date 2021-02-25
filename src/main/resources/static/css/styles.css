@@ -34,27 +34,20 @@ h3 {
     left:2%;
 }
 
-.btn-zapocni-rjesavanje {
-    position: relative;
-    display: inline-block;
-    top:30%;
-    margin-left: 2%;
-}
-
-
-.btn-provjera-odgovora {
+.btn-naslov-container {
     position: relative;
     display: inline-block;
     margin-left: 2%;
     top:30%;
 }
+
 
 .timer-container {
     position: relative;
     display: inline-block;
     top: 30%;
     font-size: 22px;
-    margin-left: 65%;
+    margin-left: 50%;
     border: 3px solid black;
     border-radius: 12px;
     padding: 5px 10px 5px 10px;
@@ -168,7 +161,6 @@ h3 {
     font-size: 22px;
     font-weight: bold;
 }
-
 
 
 .modal-header {
