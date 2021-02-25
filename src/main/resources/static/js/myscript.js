@@ -3,8 +3,12 @@ var num = "0";
 window.onload = function () {
     document.getElementById("timer").innerHTML = "90:00";
 
+    document.getElementById("provjera").disabled = true;
+
     if (sessionStorage.getItem("isBtnZapocniRjesavatiDisabled") === "true") {
         document.getElementById("zapocni-rjesavanje").disabled = true;
+        document.getElementById("odgovori-ucenje").disabled = true;
+        document.getElementById("provjera").disabled = false;
         sessionStorage.setItem("isBtnZapocniRjesavatiDisabled", "false");
         stoperica();
     }
@@ -60,6 +64,7 @@ function klikProvjeraOdgovora(daLiJeIstekloVrijeme) {
 
         //enablanje gumba zapocni rjesavanje
         document.getElementById("zapocni-rjesavanje").disabled = false;
+        document.getElementById("odgovori-ucenje").disabled = false;
 
         return;
     }
@@ -91,10 +96,12 @@ function klikProvjeraOdgovora(daLiJeIstekloVrijeme) {
         });
 
     } else {
+        clearInterval(intervalTimera);
         provjeraOdgovora();
     }
 
     document.getElementById("zapocni-rjesavanje").disabled = false;
+    document.getElementById("odgovori-ucenje").disabled = false;
 }
 
 
@@ -109,6 +116,7 @@ $("#btn-modal-provjeri-rezultate").on("click", function () {
 
 $("#btn-nastavi-rjesavanje-modal").on("click", function () {
     document.getElementById("zapocni-rjesavanje").disabled = true;
+    document.getElementById("odgovori-ucenje").disabled = true;
 });
 
 
