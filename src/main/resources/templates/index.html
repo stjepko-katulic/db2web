@@ -127,39 +127,42 @@
 
                             <div th:case="1">
                                 <th:block th:each="odgovor : ${pitanje.getOdgovori()}">
-                                    <div class="form-check radiobutton-odabir">
-                                        <input class="form-check-input" type="radio"
-                                               th:name="'odgovori-na-pitanje-'+ ${counter.getTrenutnoPitanje()}"
-                                               th:id="'flexRadioDefault-'+${counter.getTrenutnoPitanje()}+'-'+ ${counter.getSlovoTrenutnogOdgovora()}"
-                                               th:pitanje="${counter.getTrenutnoPitanje()}"
-                                               th:odgovor="${counter.getSlovoTrenutnogOdgovora()}"
-                                               th:tocnost="${odgovor.getIsTocan()}">
+                                    <div class="radiobutton-odgovor">
+                                        <div class="form-check radiobutton-odabir">
+                                            <input class="form-check-input" type="radio"
+                                                   th:name="'odgovori-na-pitanje-'+ ${counter.getTrenutnoPitanje()}"
+                                                   th:id="'flexRadioDefault-'+${counter.getTrenutnoPitanje()}+'-'+ ${counter.getSlovoTrenutnogOdgovora()}"
+                                                   th:pitanje="${counter.getTrenutnoPitanje()}"
+                                                   th:odgovor="${counter.getSlovoTrenutnogOdgovora()}"
+                                                   th:tocnost="${odgovor.getIsTocan()}">
+                                        </div>
+                                        <span class="odgovor odgovor-checkbox"
+                                              th:data-input="Y"
+                                              th:odgovoriNaPitanje="${counter.getTrenutnoPitanje()}"
+                                              th:tocnost="${odgovor.getIsTocan()}"
+                                              th:text="${counter.getCounterOdgovori()+ '  ' + odgovor.getOdgovor()}"></span>
                                     </div>
-                                    <span class="odgovor"
-                                          th:data-input="Y"
-                                          th:odgovoriNaPitanje="${counter.getTrenutnoPitanje()}"
-                                          th:tocnost="${odgovor.getIsTocan()}"
-                                          th:text="${counter.getCounterOdgovori()+ '  ' + odgovor.getOdgovor()}"></span>
-                                    <br>
+<!--                                    <br>-->
                                 </th:block>
                             </div>
 
                             <div th:case="2">
                                 <th:block th:each="odgovor : ${pitanje.getOdgovori()}">
-                                    <div class="form-check checkbox-odabir">
-                                        <input class="form-check-input" type="checkbox"
-                                               th:name="'odgovori-na-pitanje-'+ ${counter.getTrenutnoPitanje()}"
-                                               th:id="'flexCheckboxDefault-'+${counter.getTrenutnoPitanje()}+'-'+ ${counter.getSlovoTrenutnogOdgovora()}"
-                                               th:pitanje="${counter.getTrenutnoPitanje()}"
-                                               th:odgovor="${counter.getSlovoTrenutnogOdgovora()}"
-                                               th:tocnost="${odgovor.getIsTocan()}">
+                                    <div class="checkbox-odgovor">
+                                        <div class="form-check checkbox-odabir">
+                                            <input class="form-check-input" type="checkbox"
+                                                   th:name="'odgovori-na-pitanje-'+ ${counter.getTrenutnoPitanje()}"
+                                                   th:id="'flexCheckboxDefault-'+${counter.getTrenutnoPitanje()}+'-'+ ${counter.getSlovoTrenutnogOdgovora()}"
+                                                   th:pitanje="${counter.getTrenutnoPitanje()}"
+                                                   th:odgovor="${counter.getSlovoTrenutnogOdgovora()}"
+                                                   th:tocnost="${odgovor.getIsTocan()}">
+                                        </div>
+                                        <span class="odgovor"
+                                              th:data-input="Y"
+                                              th:odgovoriNaPitanje="${counter.getTrenutnoPitanje()}"
+                                              th:tocnost="${odgovor.getIsTocan()}"
+                                              th:text="${counter.getCounterOdgovori()+ '  ' + odgovor.getOdgovor()}"></span>
                                     </div>
-                                    <span class="odgovor"
-                                          th:data-input="Y"
-                                          th:odgovoriNaPitanje="${counter.getTrenutnoPitanje()}"
-                                          th:tocnost="${odgovor.getIsTocan()}"
-                                          th:text="${counter.getCounterOdgovori()+ '  ' + odgovor.getOdgovor()}"></span>
-                                    <br>
                                 </th:block>
                             </div>
 

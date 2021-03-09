@@ -65,13 +65,30 @@ h3 {
 
 .odgovor {
     display: inline-block;
+    position: relative;
     font-family: "Yu Gothic UI Semilight";
     font-size: 15px;
     width: 85%;
 }
 
-.radiobutton-odabir {
+.odgovor-checkbox {
+    margin-left: 17px;
+}
+
+.radiobutton-odgovor {
+     position: relative;
+     display: block;
+ }
+
+.checkbox-odgovor {
     position: relative;
+    display: block;
+}
+
+
+.radiobutton-odabir {
+    position: absolute;
+    top:0;
 }
 
 .panel {
@@ -96,7 +113,7 @@ h3 {
 }
 
 .panel-blue {
-    border: 2px solid #0087FF;
+    border: 2px solid #4cc9f0;
     background-color: #F5FFFA;
     color: #08485e;
     border-radius: 20px;
