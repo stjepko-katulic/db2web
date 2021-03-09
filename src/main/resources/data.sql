@@ -43,12 +43,12 @@ values
 ('Which options are valid for an online reorganization operation?', 1),
 ('A DBA has observed that queries executed against SALES table have poor performance. DB2 tools have indicated that the level of data
   fragmentation in the SALES table is very high. Similar results were detected for indexes defined on the SALES table.
-   Which of the SALES table?', 1),
+
+  Which of the SALES table?', 1),
 ('Which of the following are valid Explain operators? (Choose two.)', 2),
 ('Which is the correct way to backup only metadata about database backups, table space backups, and table load operations for database MYDB?', 1),
 ('Which of the following SQL statements will list table spaces whose utilization is greater than 95% and may potentially fill, returning an error?', 1),
-('When operating in NPS compatibility mode, which of the following are limitations for using a routine written in NZPLSQL?
-  (Choose two.)', 2),
+('When operating in NPS compatibility mode, which of the following are limitations for using a routine written in NZPLSQL? (Choose two.)', 2),
 ('Which of the following enables the user to connect to the HADR standby database and execute select statements?', 1),
 ('The DBA is concerned about a new application potentially corrupting a set of tables in table space TS1 in database DB1. TAB1 is a table in TS1. The
   DBA performs the following commands before running the application. The first QUIESCE completes at time pit.
@@ -58,8 +58,7 @@ values
   QUIESCE TABLESPACES FOR TABLE tab1 RESET
 
   Which of the following is TRUE?', 1),
-('When the DB2_WORKLOAD registry variable is assigned the value ANALYTICS and then a new database is created, what
-  happens? (Choose two.)', 2),
+('When the DB2_WORKLOAD registry variable is assigned the value ANALYTICS and then a new database is created, what happens? (Choose two.)', 2),
 ('Which two of the following functions of DB2 Workload Manager are restricted by license? (Choose two.)', 2),
 ('Which of the following are all valid types of trigger?', 1),
 ('The HADR_TARGET_LIST parameter enables HADR to run in multiple standby mode. Which of the following statements are TRUE
@@ -107,13 +106,13 @@ values
 ('Which ALTER TABLE statements will put a table named TAB1 in "reorg-pending" state? (Choose two.)', 2),
 ('If the following SQL statements are executed:
 
-    CREATE TABLE department
+   CREATE TABLE department
      (deptno CHAR(3) NOT NULL,
       location CHAR(16))
       ORGANIZE BY ROW;
 
    ALTER TABLE department
-    ADD CONSTRAINT pk_dept PRIMARY KEY (deptno) NOT ENFORCED;
+   ADD CONSTRAINT pk_dept PRIMARY KEY (deptno) NOT ENFORCED;
 
    INSERT INTO department VALUES (A25, New York);
    INSERT INTO department VALUES (B26, Chicago);
